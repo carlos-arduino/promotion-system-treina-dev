@@ -5,13 +5,17 @@
 <% end %>
 
 <p><%= link_to "Voltar", root_path %></p>
+<p><%= link_to "Registrar uma promoção", new_promotion_path %></p>
 
 <table style="width:100%">
-    <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Discount</th>
-    </tr>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Discount</th>
+        </tr>
+    </thead>
+    
     <% @promotions.each do |promotion| %>
         <tr>
             <td><%= link_to promotion.name, promotion %></td>
