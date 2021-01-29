@@ -1,4 +1,7 @@
-<h1>Listed Promotions</h1>
+<div class="mx-auto" style="width: 240px;">
+    <h3>Listed Promotions</h3>
+</div>
+
 
 <% flash.each do |type, msg| %>
     <%= msg %>
@@ -7,20 +10,17 @@
 <p><%= link_to "Voltar", root_path %></p>
 <p><%= link_to "Registrar uma promoção", new_promotion_path %></p>
 
-<table style="width:100%">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Discount</th>
-        </tr>
-    </thead>
-    
-    <% @promotions.each do |promotion| %>
-        <tr>
-            <td><%= link_to promotion.name, promotion %></td>
-            <td><%= promotion.description %></td>
-            <td><%= number_to_percentage(promotion.discount_rate, precision: 2, separator: ',')  %></td>
-        </tr>
-    <% end %>
-</table>
+<% @promotions.each do |promotion| %>
+    <div class="card bg-light mx-5 my-3">
+        <div class="card-header">
+          <%= "Expiration Date => #{promotion.expiration_date}" %>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Description</h5>
+          <p class="card-text"><%= promotion.description %></p>
+          <h5 class="card-title">Discount rate</h5>
+          <p class="card-text"><%= number_to_percentage(promotion.discount_rate, precision: 2, separator: ',') %></p>
+          <%= link_to promotion.name, promotion , class: "btn btn-primary" %>
+        </div>
+    </div>
+<% end %>
