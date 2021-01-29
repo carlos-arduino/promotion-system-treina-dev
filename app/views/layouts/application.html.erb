@@ -11,6 +11,14 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-expand navbar-light bg-light">
+      <a class="navbar-brand" href='#' >Promotion System</a>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <%=link_to "Promoções", promotions_path , class: 'nav-item nav-link active' %>
+        </div>
+      </div>
+    </nav>
     <%= yield %>
   </body>
 </html>
