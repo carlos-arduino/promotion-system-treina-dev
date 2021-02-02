@@ -1,4 +1,7 @@
+<h2><%= link_to "Voltar", promotions_path %></h2>
+
 <h1><%= "Details of promotions #{@promotion.name}" %></h1>
+
 <dl>
     <dt>Descrição</dt>
     <dd><%= @promotion.description %></dd>
@@ -18,10 +21,18 @@
                              method: :delete,
                              data: { confirm: "Tem certeza?"} %></p>
 </div>
-<h2><%= link_to "Voltar", promotions_path %></h2>
 
+<div>
+    <p><%= link_to "Gerar Cupons" , generate_coupons_promotion_path(@promotion), method: :post %></p>
+</div>
 
+<% if flash[:notice] %>
+    <div>
+        <%= flash[:notice] %>
+    </div>
+<% end %>
 
-
-
+<% @promotion.coupons.each do |coupon| %>
+  <%= coupon.code %>
+<% end %>
 
