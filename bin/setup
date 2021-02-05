@@ -20,6 +20,8 @@ FileUtils.chdir APP_ROOT do
   # Install JavaScript dependencies
   system! 'bin/yarn'
 
+  puts '== Installing bootstrap and dependecies =='
+  system! 'bin/yarn add bootstrap jquery popper.js'
   # puts "\n== Copying sample files =="
   # unless File.exist?('config/database.yml')
   #   FileUtils.cp 'config/database.yml.sample', 'config/database.yml'

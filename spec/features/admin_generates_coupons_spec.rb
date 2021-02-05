@@ -12,7 +12,7 @@ feature 'Admin can generate coupons' do
         click_on promotion.name
         click_on 'Gerar Cupons'
 
-        expect(page).to have_content('Promoção gerada com sucesso')
+        expect(page).to have_content('Cupons gerados com sucesso')
         expect(page).to have_content('CYBER15-0001')
         expect(page).to have_content('CYBER15-0002')
         expect(page).to have_content('CYBER15-0100')

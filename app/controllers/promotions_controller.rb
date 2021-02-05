@@ -2,7 +2,7 @@ class PromotionsController < ApplicationController
     def index
         @promotions = Promotion.all
         if @promotions.count == 0
-            flash.now[:alert] = "Nenhuma promoção cadastrada"            
+            flash[:alert] = "Nenhuma promoção cadastrada"            
         end
     end
 
@@ -47,13 +47,9 @@ class PromotionsController < ApplicationController
 
     def generate_coupons
         @promotion = Promotion.find(params[:id])
+        @promotion.generate_coupons!
 
-        1.upto(@promotion.coupon_quantity) do |number|
-            Coupon.create!(code: "#{@promotion.code}-#{'%04d' % number}",
-                           promotion: @promotion)
-        end
-        flash[:notice] = 'Promoção gerada com sucesso'
-        redirect_to @promotion
+        redirect_to @promotion, notice: t('.success')
     end
 
     private
@@ -62,3 +58,5 @@ class PromotionsController < ApplicationController
               .permit(:name, :description, :code, :discount_rate, :coupon_quantity, :expiration_date)
     end
 end
+
+# TODO Acertar I18n dos titles das views
