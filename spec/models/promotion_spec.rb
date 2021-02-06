@@ -29,7 +29,7 @@ describe Promotion do
     end
 
     it 'description is opcional' do
-      promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+      promotion = Promotion.create!(name: 'Natal', description: '',
                         code: 'NATAL10', discount_rate: 10,
                         coupon_quantity: 100, expiration_date: '22/12/2033')
       
@@ -53,6 +53,16 @@ describe Promotion do
       expect(codes).not_to include('NATAL10-0101')
     end
 
+    it 'do not generate if error' do
+      promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                                    code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+                                    expiration_date: '22/12/2033')
+
+      promotion.coupons.create!(code: 'NATAL10-0050')
+    
+      expect { promotion.generate_coupons! }.to raise_error(ActiveRecord::RecordNotUnique)
+      expect(promotion.coupons.reload.count).to eq(1)
+    end
   end
 end
 

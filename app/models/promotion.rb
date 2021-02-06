@@ -5,8 +5,8 @@ class Promotion < ApplicationRecord
     validates :code , uniqueness: { message: "deve ser único" } 
 
     def generate_coupons!
-        1.upto(coupon_quantity).each do |number|
-            Coupon.create!(code: "#{code}-#{'%04d' % number}", promotion: self)
+        Coupon.transaction do
+            coupons.insert_all!(mount_coupons_array)
         end
     end
 
@@ -14,7 +14,9 @@ class Promotion < ApplicationRecord
 
     def mount_coupons_array
         1.upto(coupon_quantity).inject([]) do |arr, number|
-            arr << { code: "#{code}-#{'%04d' % number}", promotion: self }
+            arr << { code: "#{code}-#{'%04d' % number}", 
+                     created_at: Time.now,
+                     updated_at: Time.now }
         end
     end
 end
