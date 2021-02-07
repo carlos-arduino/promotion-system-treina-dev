@@ -33,6 +33,11 @@
 <% end %>
 
 <% @promotion.coupons.each do |coupon| %>
-  <%= coupon.code %>
+    <div id="coupon-<%= coupon.id %>">
+        <%= coupon.code %>
+        <% if coupon.active? %>
+            <%= link_to "Inativar" , disable_coupon_path(coupon), method: :post %>    
+        <% end %>        
+    </div>
 <% end %>
 
