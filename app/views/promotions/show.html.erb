@@ -26,12 +26,6 @@
     <p><%= link_to "Gerar Cupons" , generate_coupons_promotion_path(@promotion), method: :post %></p>
 </div>
 
-<% if flash[:notice] %>
-    <div>
-        <%= flash[:notice] %>
-    </div>
-<% end %>
-
 <% @promotion.coupons.each do |coupon| %>
     <div id="coupon-<%= coupon.id %>">
         <%= coupon.code %>

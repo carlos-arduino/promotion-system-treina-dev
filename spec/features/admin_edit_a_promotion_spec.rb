@@ -2,10 +2,12 @@ require 'rails_helper'
 
 feature 'Admin edit a promotion' do
     scenario 'from index page' do
+        user = User.create!(email: 'cae@email.com', password: '123456')
+        login_as user, scope: :user
         Promotion.create!(name: 'Cyber Monday', coupon_quantity: 100,
                           description: 'Promoção de Cyber Monday',
                           code: 'CYBER15', discount_rate: 15,
-                          expiration_date: '22/12/2033')
+                          expiration_date: '22/12/2033', user: user)
 
         visit root_path
         click_on 'Promoções'
@@ -15,10 +17,12 @@ feature 'Admin edit a promotion' do
     end
 
     scenario 'and show all form fields from edit promotion view' do
+        user = User.create!(email: 'cae@email.com', password: '123456')
+        login_as user, scope: :user
         Promotion.create!(name: 'Cyber Monday', coupon_quantity: 100,
             description: 'Promoção de Cyber Monday',
             code: 'CYBER15', discount_rate: 15,
-            expiration_date: '22/12/2033')
+            expiration_date: '22/12/2033', user: user)
 
         visit root_path
         click_on 'Promoções'
@@ -34,10 +38,12 @@ feature 'Admin edit a promotion' do
     end
 
     scenario 'can edit any field' do
+        user = User.create!(email: 'cae@email.com', password: '123456')
+        login_as user, scope: :user
         Promotion.create!(name: 'Cyber Monday', coupon_quantity: 100,
             description: 'Promoção de Cyber Monday',
             code: 'CYBER15', discount_rate: 15,
-            expiration_date: '22/12/2033')
+            expiration_date: '22/12/2033', user: user)
 
         visit root_path
         click_on 'Promoções'
@@ -64,10 +70,12 @@ feature 'Admin edit a promotion' do
     end
 
     scenario 'and not show old values fields previously edited' do
+        user = User.create!(email: 'cae@email.com', password: '123456')
+        login_as user, scope: :user
         Promotion.create!(name: 'Cyber Monday', coupon_quantity: 100,
             description: 'Promoção de Cyber Monday',
             code: 'CYBER15', discount_rate: 15,
-            expiration_date: '22/12/2033')
+            expiration_date: '22/12/2033', user: user)
 
         visit root_path
         click_on 'Promoções'

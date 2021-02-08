@@ -15,10 +15,20 @@
       <a class="navbar-brand" href='#' >Promotion System</a>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <%=link_to "Promoções", promotions_path , class: 'nav-item nav-link active' %>
+          <%=link_to 'Promoções', promotions_path , class: 'nav-item nav-link active' %>
+          <% if user_signed_in? %>
+            <%= current_user.email %>
+            <%=link_to 'Sair', destroy_user_session_path , method: :delete, class: 'nav-item nav-link active' %>
+          <% else %>
+            <%=link_to 'Entrar', new_user_session_path , class: 'nav-item nav-link active' %>
+          <% end %>          
         </div>
       </div>
     </nav>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"> <%= alert %></p>
+
     <%= yield %>
   </body>
 </html>
