@@ -1,36 +1,50 @@
-<h2><%= link_to "Voltar", promotions_path %></h2>
+<h2><%= link_to t('.go_back'), promotions_path %></h2>
 
-<h1><%= "Details of promotions #{@promotion.name}" %></h1>
+<h1><%= "#{t('.title')} #{@promotion.name}" %></h1>
+
 
 <dl>
-    <dt>Descrição</dt>
+    <dt><%= Promotion.human_attribute_name('description') %></dt>
     <dd><%= @promotion.description %></dd>
-    <dt>Código</dt>
+    <dt><%= Promotion.human_attribute_name('code') %></dt>
     <dd><%= @promotion.code %></dd>
-    <dt>Porcentagem de desconto</dt>
+    <dt><%= Promotion.human_attribute_name('discount_rate') %></dt>
     <dd><%= number_to_percentage(@promotion.discount_rate, precision: 2, separator: ',') %></dd>
-    <dt>Quantidade de cupom</dt>
+    <dt><%= Promotion.human_attribute_name('coupon_quantity') %></dt>
     <dd><%= @promotion.coupon_quantity %></dd>
-    <dt>Data de expiração</dt>
+    <dt><%= Promotion.human_attribute_name('expiration_date')%></dt>
     <dd><%= I18n.localize @promotion.expiration_date %></dd>
 </dl>
 
+<% if @promotion.user != current_user %>
+    <div>
+        <%= link_to 'Aprovar Promoção', approve_promotion_path(@promotion), method: :post %>
+    </div>
+<% end %>
+
+<% if @promotion.approved? %>
+    <div>
+        <%= 'Status: Aprovada' %>
+    </div><br>
+    <div>
+        <p><%= link_to t('.coupons_create') , generate_coupons_promotion_path(@promotion), method: :post %></p>
+    </div>
+<% end %>
+
 <div>
-    <p><%= link_to "Editar", edit_promotion_path(@promotion) %></p>
-    <p><%= link_to "Apagar", promotion_path(@promotion),
+    <p><%= link_to t('.edit'), edit_promotion_path(@promotion) %></p>
+    <p><%= link_to t('.delete'), promotion_path(@promotion),
                              method: :delete,
                              data: { confirm: "Tem certeza?"} %></p>
 </div>
 
-<div>
-    <p><%= link_to "Gerar Cupons" , generate_coupons_promotion_path(@promotion), method: :post %></p>
-</div>
+
 
 <% @promotion.coupons.each do |coupon| %>
     <div id="coupon-<%= coupon.id %>">
         <%= coupon.code %>
         <% if coupon.active? %>
-            <%= link_to "Inativar" , disable_coupon_path(coupon), method: :post %>    
+            <%= link_to t('.inactivate') , disable_coupon_path(coupon), method: :post %>    
         <% end %>        
     </div>
 <% end %>

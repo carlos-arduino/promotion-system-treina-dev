@@ -2,3 +2,16 @@ pt-BR:
   promotions:
     generate_coupons:
       success: 'Cupons gerados com sucesso'
+    show:
+      edit: 'Editar'
+      delete: 'Apagar'
+      coupons_create: 'Gerar Cupons'
+      inactivate: 'Inativar'
+      title: 'Detalhes da promoção'
+      go_back: 'Voltar'
+    edit:
+      title: 'Editar Promoção'
+    new:
+      title: 'Nova Promoção'
+    index:
+      title: 'Promoções Cadastradas'
